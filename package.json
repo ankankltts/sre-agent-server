@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "strat": "node index.js",
-    "dev": "nodemon index.js"
+    "strat": "node index.js"
+    
   },
   "keywords": [],
   "author": "",

@@ -21,7 +21,7 @@ app.get("/api/stations", async (req, res) => {
      const response=await axios.get(url,{
         params:{
              "start-date": startDate,
-        "end-date": endDate,
+             "end-date": endDate,
         },
           headers: {
         Authorization: `Bearer ${API_KEY}`
