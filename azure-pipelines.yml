@@ -49,7 +49,9 @@ stages:
           - task: AzureWebApp@1
             inputs:
               azureSubscription: 'DCFC Integration-Site Reliability Engineering'
-              appName: ''
+              appName: 'sre-server'
+              package: '$(Pipeline.Workspace)/drop/**/*.zip'
+
 
 
 
