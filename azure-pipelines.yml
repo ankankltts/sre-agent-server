@@ -33,23 +33,6 @@ stages:
         ArtifactName: 'drop'
         publishLocation: 'Container'
 
-# 2️⃣ Dev Deployment Stage
-- stage: Dev
-  dependsOn: Build
-  jobs:
-  - deployment: DeploytoDev
-    environment: 'Dev'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - download: current
-            artifact: drop
-
-          - task: AzureWebApp@1
-            inputs:
-              azureSubscription: 'DCFC Integration-Site Reliability Engineering'
-              appName: ''
 
 
 
