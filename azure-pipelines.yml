@@ -1,3 +1,11 @@
+trigger:
+- azure-pipelines #considered as main
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+# --------------------
 # 1️⃣ Build Stage
 # --------------------
 - stage: Build
@@ -13,23 +21,15 @@
         npm install
       displayName: 'npm install'
 
-    # (Optional) If you want to run build scripts
-    - script: |
-        npm run build
-      displayName: 'npm build'
-      continueOnError: false
-
-    # Archive all files into a zip package
-    - task: ArchiveFiles@2
+    - task: CopyFiles@2
       inputs:
         rootFolderOrFile: '$(Build.SourcesDirectory)'
         includeRootFolder: false
         archiveType: 'zip'
-        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        archiveFile:'$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
         replaceExistingArchive: true
       displayName: 'Archive project files'
 
-    # Publish the zip as artifact
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
@@ -37,7 +37,6 @@
         publishLocation: 'Container'
 
 # 2️⃣ Dev Deployment Stage
-# --------------------
 - stage: Dev
   dependsOn: Build
   jobs:
@@ -55,3 +54,12 @@
               azureSubscription: 'DCFC Integration-Site Reliability Engineering'
               appName: 'sre-server'
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
+
+
+
+
+
+
+
+
+
