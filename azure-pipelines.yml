@@ -22,19 +22,14 @@ stages:
       displayName: 'npm install'
 
     - task: CopyFiles@2
+      displayName: 'Copy scripts'
       inputs:
-        rootFolderOrFile: '$(Build.SourcesDirectory)'
-        includeRootFolder: false
-        archiveType: 'zip'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-        replaceExistingArchive: true
-      displayName: 'Archive project files'
+       contents: 'scripts/**'
+       targetFolder: '$(Build.ArtifactStagingDirectory)'
 
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'drop'
-        publishLocation: 'Container'
+      publish: '$(Build.ArtifactStagingDirectory)/scripts'
+      artifact: 'drop'
+      displayName:  'Publish script'
 
 # 2️⃣ Dev Deployment Stage
 - stage: Dev
