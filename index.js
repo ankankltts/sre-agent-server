@@ -41,6 +41,9 @@ app.get('/', (req, res) => {
     
   });
 });
+app.get('/api', (req, res) => {
+  res.send(`App running successfully 🚀<br>BASE_URL=${BASE_URL}`);
+});
 
 
 
