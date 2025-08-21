@@ -31,8 +31,8 @@ stages:
     - task: PublishBuildArtifacts@1
       displayName: 'Publish scripts artifact'
       inputs:
-        pathtoPublish: '$(Build.ArtifactStagingDirectory)/scripts'
-        artifactName: 'drop'
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/scripts'
+        ArtifactName: 'drop'
         publishLocation: 'Container'
 
 # 2️⃣ Dev Deployment Stage
