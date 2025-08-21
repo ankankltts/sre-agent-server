@@ -44,6 +44,9 @@ stages:
 # --------------------
 - stage: Dev
   dependsOn: Build
+  variables:
+    - group: DevConfig
+
   jobs:
   - deployment: DeployToDev
     displayName: 'Deploy to Dev environment'
@@ -54,6 +57,18 @@ stages:
           steps:
           - download: current
             artifact: drop   # Download the "drop" artifact from Build stage
+          
+          # ✅ Debugging: print all variables to confirm they are available
+          - script: |
+              echo "================= VARIABLE DUMP ================="
+              echo "Build.BuildId = $(Build.BuildId)"
+              echo "Pipeline.Workspace = $(Pipeline.Workspace)"
+              echo "Release.EnvironmentName = $(Release.EnvironmentName)"
+              echo "From Variable Group (DevConfig): $(PPBASE_URL)"   
+              echo "=================================================="
+            displayName: "Debug Variables"
+
+
 
           # (Optional) Inspect the downloaded artifact
           - script: |
