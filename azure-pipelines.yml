@@ -21,38 +21,25 @@ stages:
         npm install
       displayName: 'npm install'
 
-    - task: CopyFiles@2
-      displayName: 'Copy scripts'
+      # Create a zip from everything in the repo root
+    - task: ArchiveFiles@2
+      displayName: 'Archive source code'
       inputs:
-       sourceFolder: '$(Build.SourcesDirectory)'
-       contents: 'scripts/**'
-       targetFolder: '$(Build.ArtifactStagingDirectory)/scripts'
+        rootFolderOrFile: '$(Build.SourcesDirectory)'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/drop/myapp.zip'
+        replaceExistingArchive: true
 
+    # Publish the zip as artifact
     - task: PublishBuildArtifacts@1
-      displayName: 'Publish scripts artifact'
+      displayName: 'Publish artifact'
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)/scripts'
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/drop'
         ArtifactName: 'drop'
         publishLocation: 'Container'
 
-# 2️⃣ Dev Deployment Stage
-- stage: Dev
-  dependsOn: Build
-  jobs:
-  - deployment: DeploytoDev
-    environment: 'Dev'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - download: current
-            artifact: drop
 
-          - task: AzureWebApp@1
-            inputs:
-              azureSubscription: 'DCFC Integration-Site Reliability Engineering'
-              appName: 'sre-server'
-              package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
 
 
 
