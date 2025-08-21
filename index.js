@@ -35,7 +35,7 @@ const API_KEY = process.env.API_KEY;
 //   }
 // });
 // GET API
-app.get("/api/message", (req, res) => {
+app.get("/", (req, res) => {
   res.json({ message: "Hello from Dev API!" });
 });
 
