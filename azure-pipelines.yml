@@ -24,12 +24,16 @@ stages:
     - task: CopyFiles@2
       displayName: 'Copy scripts'
       inputs:
+       sourceFolder: '$(Build.SourcesDirectory)'
        contents: 'scripts/**'
-       targetFolder: '$(Build.ArtifactStagingDirectory)'
+       targetFolder: '$(Build.ArtifactStagingDirectory)/scripts'
 
-      publish: '$(Build.ArtifactStagingDirectory)/scripts'
-      artifact: 'drop'
-      displayName:  'Publish script'
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish scripts artifact'
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)/scripts'
+        artifactName: 'drop'
+        publishLocation: 'Container'
 
 # 2️⃣ Dev Deployment Stage
 - stage: Dev
