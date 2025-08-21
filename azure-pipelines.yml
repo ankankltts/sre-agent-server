@@ -90,6 +90,9 @@ stages:
               azureSubscription: 'DCFC Integration-Site Reliability Engineering'
               appName: 'sre-server'
               package: '$(Pipeline.Workspace)/drop/myapp_$(Build.BuildId).zip'
+              appSettings: |
+                - API_KEY $(API_KEY)
+                - PPBASE_URL $(PPBASE_URL)
 
 
 
