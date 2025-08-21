@@ -63,8 +63,8 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Deploy to Dev WebApp'
             inputs:
-              azureSubscription: 'Your-Service-Connection-Name'
-              appName: 'your-dev-app-name'
+              azureSubscription: 'DCFC Integration-Site Reliability Engineering'
+              appName: 'sre-server'
               package: '$(Pipeline.Workspace)/drop/myapp_$(Build.BuildId).zip'
 
 
