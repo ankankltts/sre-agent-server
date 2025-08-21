@@ -42,30 +42,30 @@ stages:
 
 # 2️⃣ Dev Deployment Stage
 # --------------------
-- stage: Dev
-  dependsOn: Build
-  jobs:
-  - deployment: DeployToDev
-    displayName: 'Deploy to Dev environment'
-    environment: 'Dev'   # This links to Azure Pipelines "Environments"
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - download: current
-            artifact: drop   # Download the "drop" artifact from Build stage
+# - stage: Dev
+#   dependsOn: Build
+#   jobs:
+#   - deployment: DeployToDev
+#     displayName: 'Deploy to Dev environment'
+#     environment: 'Dev'   # This links to Azure Pipelines "Environments"
+#     strategy:
+#       runOnce:
+#         deploy:
+#           steps:
+#           - download: current
+#             artifact: drop   # Download the "drop" artifact from Build stage
 
-          - script: |
-              echo "Contents of downloaded artifact:"
-              ls -R $(Pipeline.Workspace)/drop
+#           - script: |
+#               echo "Contents of downloaded artifact:"
+#               ls -R $(Pipeline.Workspace)/drop
 
-          # Example: Deploy ZIP to Azure Web App
-          - task: AzureWebApp@1
-            displayName: 'Deploy to Dev WebApp'
-            inputs:
-              azureSubscription: 'DCFC Integration-Site Reliability Engineering'
-              appName: 'sre-server'
-              package: '$(Pipeline.Workspace)/drop/myapp_$(Build.BuildId).zip'
+#           # Example: Deploy ZIP to Azure Web App
+#           - task: AzureWebApp@1
+#             displayName: 'Deploy to Dev WebApp'
+#             inputs:
+#               azureSubscription: 'DCFC Integration-Site Reliability Engineering'
+#               appName: 'sre-server'
+#               package: '$(Pipeline.Workspace)/drop/myapp_$(Build.BuildId).zip'
 
 
 
