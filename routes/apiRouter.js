@@ -20,7 +20,7 @@ router.get('/stations', async (req, res) => {
     const { startDate, endDate } = req.query
     
     const url = `${BASE_URL}/api/dcfc-data/station/all_stations`
-    console.log("API_URL ", url)
+    // console.log("API_URL ", url)
     const response = await axios.get(url, {
       params: {
         "startDate": startDate,
@@ -34,7 +34,7 @@ router.get('/stations', async (req, res) => {
    
 
 const minimal = sortAndProjectByLmId(apiData, stationMapData, necessaryDataFunction);
-    console.log(minimal);
+    // console.log(minimal);
 
     res.status(200).json({
       success:true,
@@ -43,7 +43,7 @@ const minimal = sortAndProjectByLmId(apiData, stationMapData, necessaryDataFunct
 
 
   } catch (error) {
-    console.log("error",error);
+    // console.log("error",error);
     res.status(500).json({ error});
   }
 
