@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "type": "pedestal",
+    "issue": "down",
+    "aliases": [
+      "offline",
+      "inactive",
+      "idle",
+      "not active",
+      "not working",
+      "not online",
+      "failed",
+      "unavailable",
+      "not available",
+      "not connected",
+      "connector inactive",
+      "connector not active",
+      "communication lost",
+      "ems lost",
+      "ems communication lost"
+    ],
+    "steps": [
+      "Check mender logs",
+      "Verify EMS communication with the pedestal",
+      "If EMS communication is lost, restart pedestalIoController module in Azure",
+      "Check connector status",
+      "Verify charging session logs",
+      "Restart pedestal if required"
+    ]
+  },
+  {
+    "id": 2,
+    "type": "station",
+    "issue": "down",
+    "aliases": [
+      "offline",
+      "not working",
+      "not online",
+      "failed",
+      "unavailable",
+      "not available",
+      "not connected",
+      "network issue"
+    ],
+    "steps": [
+      "Check E-Stop status",
+      "If E-Stop is ON, clear it",
+      "If E-Stop is OFF, check BESS status",
+      "If BESS is OFF, restart EMS",
+      "Check network connectivity",
+      "Verify EMS link",
+      "Restart EMS services if needed"
+    ]
+  }
+]

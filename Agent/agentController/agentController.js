@@ -1,29 +1,30 @@
-import { processAgentQuery } from "../agentServices/agentService.js";
-import {getStationsData} from '../../services/getStationsData.js'
+import { getStationsData } from "../../services/getStationsData.js";
+import { processLangChainQuery } from "../langchain/langchainAgentService.js";
 
-
-export const agentController = async (req, res) => {
+export async function langchainAgentController(req, res) {
   try {
-    const { query, startDate, endDate  } = req.body;
+    const { query } = req.body;
 
-    const stationsData = await getStationsData(startDate, endDate);
-    // console.log("[AgentController] Stations data:", stationsData);
+    if (!query || !query.trim()) {
+      return res.status(400).json({
+        message: "Query is required"
+      });
+    }
 
+    const stationsData = await getStationsData();
 
-    const result = await processAgentQuery({
+    const result = await processLangChainQuery({
       query,
-      stationsData,
-     
-      
+      stationsData
     });
 
-    res.status(200).json(result);
+    return res.json(result);
 
   } catch (err) {
-    console.error("[AgentController Error]", err.message);
+    console.error("LangChain agent controller error:", err);
 
-    res.status(500).json({
-      error: err.message
+    return res.status(500).json({
+      message: err.message || "Internal error"
     });
   }
-};
+}

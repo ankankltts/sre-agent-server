@@ -18,7 +18,7 @@ router.get("/stations", async (req, res) => {
     }
    
     const data = await getStationsData(startDate, endDate);
-    // console.log("data:;;;;;",data);
+   
     
 
     res.status(200).json({ success: true, data });

@@ -24,8 +24,11 @@ export const getStationsData = async (startDate, endDate) => {
     headers: { Authorization: `Bearer ${API_KEY}` },
     // timeout: 100000
   });
+  
+   
+   
    const sortedData=sortAndProjectByLmId(data, stationMapData, necessaryDataFunction)
-//    console.log("sortedData:::",sortedData);
+
    
   return sortedData;
 };

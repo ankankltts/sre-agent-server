@@ -3,11 +3,11 @@ import axios from "axios";
 import dotenv from "dotenv";
 import cors from "cors";
 
-import {agentController} from '../agentController/agentController.js'
+import {langchainAgentController} from '../agentController/agentController.js'
 
 const router=express.Router()
 
 
-router.post("/query",agentController)
+router.post("/query",langchainAgentController)
 
 export default router
