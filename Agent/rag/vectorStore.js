@@ -12,7 +12,7 @@ export async function loadDocuments() {
     );
 
     const data = JSON.parse(raw);
-    console.log("data::::",data);
+    // console.log("data::::",data);
     
 
     // console.log(`Loaded ${data.length} troubleshooting documents`);
@@ -50,7 +50,7 @@ export async function loadDocuments() {
 }
 
 export async function ensureDocsLoaded() {
-  if (isLoaded) return;
+  if (isLoaded) return true;
 
   if (!loadingPromise) {
     loadingPromise = loadDocuments();
@@ -60,9 +60,11 @@ export async function ensureDocsLoaded() {
 
   if (loaded) {
     isLoaded = true;
-  } else {
-    loadingPromise = null;
+    return true;
   }
+
+  loadingPromise = null;
+  return false;
 }
 
 function cosineSimilarity(a, b) {

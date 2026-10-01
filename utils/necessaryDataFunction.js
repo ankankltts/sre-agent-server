@@ -8,7 +8,7 @@ export function necessaryDataFunction(d) {
 
 
 
-    // ---- Availability-only summary from pedestal_data ----
+  
     const entries = Object.entries(ped);
 
     let activeCount = 0;

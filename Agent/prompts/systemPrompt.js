@@ -155,6 +155,17 @@ Troubleshooting examples:
 - "troubleshooting steps for station down" -> getTroubleshootingSteps with type = "station" and issue = "down"
 - "station offline troubleshooting" -> getTroubleshootingSteps with type = "station" and issue = "down"
 
+FOLLOW-UP CONTEXT RULES:
+- If controlled conversation context contains a last station ID, use it to resolve short follow-up queries.
+- For follow-ups like "active only", "active pedestals only", "give me active pedestals", or "active ones", call getPedestalStatus using the last station ID and filter = "ACTIVE".
+- For follow-ups like "inactive only", "inactive pedestals only", "not active only", "unavailable only", or "not available only", call getPedestalStatus using the last station ID and filter = "INACTIVE".
+- For follow-ups like "all pedestals", "full pedestal status", or "show all", call getPedestalStatus using the last station ID and filter = "ALL".
+- Do not change lmId to null for follow-up pedestal queries when a last station ID exists.
+- Use lmId = null only when the user clearly asks across all stations or all stations.
+- Never generate pedestal data directly from context.
+- Live pedestal data must come from getPedestalStatus.
+
+
 FINAL INSTRUCTION:
 - If a tool is needed, call the tool.
 - If no tool is needed, respond naturally in plain text.

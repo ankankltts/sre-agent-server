@@ -1,21 +1,34 @@
-import { getStationsData } from "../../services/getStationsData.js";
-import { processLangChainQuery } from "../langchain/langchainAgentService.js";
+import {
+  getCachedStationsData,
+  refreshStationsDataCache
+} from "../../services/stationDataCache.js";
 
-export async function langchainAgentController(req, res) {
+import { processEvQuery } from "../agents/ev-query-agent/index.js";
+
+export async function evQueryController(req, res) {
   try {
-    const { query } = req.body;
+    const {
+      query,
+      sessionId
+    } = req.body;
 
     if (!query || !query.trim()) {
       return res.status(400).json({
+        success: false,
         message: "Query is required"
       });
     }
 
-    const stationsData = await getStationsData();
+    let stationsData = await getCachedStationsData();
 
-    const result = await processLangChainQuery({
+    if (!Array.isArray(stationsData) || stationsData.length === 0) {
+      stationsData = await refreshStationsDataCache();
+    }
+
+    const result = await processEvQuery({
       query,
-      stationsData
+      stationsData,
+      sessionId
     });
 
     return res.json(result);
@@ -24,6 +37,7 @@ export async function langchainAgentController(req, res) {
     console.error("LangChain agent controller error:", err);
 
     return res.status(500).json({
+      success: false,
       message: err.message || "Internal error"
     });
   }

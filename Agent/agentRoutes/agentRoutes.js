@@ -1,13 +1,27 @@
 import express from "express";
-import axios from "axios";
-import dotenv from "dotenv";
-import cors from "cors";
+import multer from "multer";
 
-import {langchainAgentController} from '../agentController/agentController.js'
+import { evQueryController } from "../agentController/agentController.js";
+import { proactiveAgentStreamController } from "../agentController/proactiveAgentController.js";
 
-const router=express.Router()
+import {logAnalyserController } from "../agentController/logAnalyserController.js"
 
 
-router.post("/query",langchainAgentController)
+const router = express.Router();
 
-export default router
+
+const upload = multer({
+  dest: "uploads/",
+  limits: {
+    fileSize: 100 * 1024 * 1024, // 100 MB
+  },
+});
+
+
+router.post("/query", evQueryController);
+
+router.get("/proactive-stream", proactiveAgentStreamController);
+
+router.post("/logs/analyse", upload.single("file"), logAnalyserController)
+
+export default router;

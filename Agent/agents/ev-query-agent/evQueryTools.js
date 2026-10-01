@@ -7,8 +7,8 @@ import {
   getOfflineStations,
   getOnlineStations,
   getPedestalStatus
-} from "../agents/toolDefinition.js";
-import {getTroubleshootingSteps } from "../troubleshooting/getTroubleshootingSteps.js"
+} from "../tool-definions/toolDefinition.js";
+import {getTroubleshootingSteps } from "../../troubleshooting/getTroubleshootingSteps.js"
 
 export function buildLangChainTools(stationsData) {
   return [
